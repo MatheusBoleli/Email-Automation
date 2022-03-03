@@ -8,7 +8,7 @@ timestamp = datetime.now() - timedelta()
 date = timestamp.strftime('%m-%d')
 
 dirExit = "Saidas/"
-portinFileExit = dirExit + "Base_Dados_%s.xlsx" % (date)
+FileExit = dirExit + "Base_Dados_%s.xlsx" % (date)
 
 query = '''
 SELECT * FROM TESTE;
@@ -25,7 +25,7 @@ df = pd.read_sql(query, con=conn)
 
 conn.close()
 
-df.to_excel(portinFileExit, index=False)
+df.to_excel(FileExit, index=False)
 
 email = 'teste@gmail.com'
 password = 'Password123'
@@ -48,8 +48,8 @@ msg['Subject'] = subject
 msg.attach(MIMEText(message, 'plain'))
 
 # Setup the attachment
-filename = os.path.basename(portinFileExit)
-attachment = open(portinFileExit, "rb")
+filename = os.path.basename(FileExit)
+attachment = open(FileExit, "rb")
 part = MIMEBase('application', 'octet-stream')
 part.set_payload(attachment.read())
 encoders.encode_base64(part)
